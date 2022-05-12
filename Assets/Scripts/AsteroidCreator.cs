@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Unity.Entities;
+
 public class AsteroidCreator : MonoBehaviour
 {
     [SerializeField]
@@ -10,8 +12,18 @@ public class AsteroidCreator : MonoBehaviour
     [Range(1,999999)]
     int _totalAsteroids=100;
 
+
+    EntityManager _mgr;
+    Entity _asteroidECSPrototype;
+
+
     IEnumerator Start()
     {
+        _mgr =  World.DefaultGameObjectInjectionWorld.EntityManager;
+        var settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, null);
+        _asteroidECSPrototype = GameObjectConversionUtility.ConvertGameObjectHierarchy(
+                _asteroidPrototype, settings);
+
         Debug.Log("generation in 3...");
         yield return new WaitForSeconds(3f);
 
