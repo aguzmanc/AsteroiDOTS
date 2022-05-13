@@ -28,7 +28,6 @@ public class Dragged2DTranslation : MonoBehaviour
 
     void Update()
     {
-        transform.Translate()
         transform.Translate(0f, (_reverse?-1f:1f) * _currentSpeed * Time.deltaTime, 0f);
 
         _currentSpeed = _currentSpeed - (Time.deltaTime * _drag);
