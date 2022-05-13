@@ -2,31 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(DraggedRotation))]
-[RequireComponent(typeof(Dragged2DTranslation))]
 public class ShipControl : MonoBehaviour
 {
-    DraggedRotation _rot;
-    Dragged2DTranslation _trans;
+    Dragged2DTransform _rot;
+    Dragged2DTransform _trX;
+    Dragged2DTransform _trY;
 
     void Start() 
     {
-        _rot = GetComponent<DraggedRotation>();
-        _trans = GetComponent<Dragged2DTranslation>();
+        _rot = gameObject.AddComponent<Dragged2DTransform>();
+        _rot.SetTransformType(Dragged2DTransform.TransformType.Rotation);
+
+        _trX = gameObject.AddComponent<Dragged2DTransform>();
+        _trY = gameObject.AddComponent<Dragged2DTransform>();
     }
 
 
     void Update() 
     {
-        if(Input.GetKey(KeyCode.RightArrow)) {
-            _rot.ResetAngularSpeed();
-        }
+        if(Input.GetKey(KeyCode.RightArrow))
+            _rot.Impulse(false);
 
-        if(Input.GetKey(KeyCode.LeftArrow)) {
-            _rot.ResetAngularSpeed(true);
-        }
+        if(Input.GetKey(KeyCode.LeftArrow))
+            _rot.Impulse(true);
 
+        /*
         if(Input.GetKey(KeyCode.UpArrow))
-            _trans.ResetSpeed();
+            _trans.Impulse(transform.up);
+            */
     }
 }

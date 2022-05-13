@@ -50,7 +50,7 @@ MonoBehaviour:
   _angularSpeed: 80
   _angularDrag: 50
   _currentAngularSpeed: 0
-  _reverse: 0
+  _cw: 0
 --- !u!114 &765016898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,11 +70,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 481792213084818852}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d1699dc5bcec49458b53735f0f2e816, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _transformType: 1
+  _maxSpeed: 40
+  _gain: 3
+  _drag: 1
+  _currentSpeed: 0
 --- !u!1 &7201834381546426146
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,7 +105,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7201834381546426146}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.808, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4665244167731324028}
@@ -229,7 +234,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7488911642970906809}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.808, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4665244167731324028}

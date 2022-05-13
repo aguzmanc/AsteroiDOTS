@@ -13,13 +13,13 @@ public class DraggedRotation : MonoBehaviour
 
     [Header("-- DEBUG --")]
     public float _currentAngularSpeed;
-    public bool _reverse;
+    public bool _cw; // clock wise
 
 
     /* Makes CurrAngSpeed be the same as initial AngularSpeed*/
-    public void ResetAngularSpeed(bool reverse=false) 
+    public void Impulse(bool cw=false) 
     {
-        _reverse = reverse;
+        _cw = cw;
         _currentAngularSpeed = _angularSpeed;
     }
 
@@ -27,7 +27,7 @@ public class DraggedRotation : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(0, 0, (_reverse?-1f:1f) * _currentAngularSpeed * Time.deltaTime);
+        transform.Rotate(0, 0, (_cw?-1f:1f) * _currentAngularSpeed * Time.deltaTime);
 
         _currentAngularSpeed = _currentAngularSpeed - (Time.deltaTime * _angularDrag);
         _currentAngularSpeed = Mathf.Max(0f, _currentAngularSpeed);
