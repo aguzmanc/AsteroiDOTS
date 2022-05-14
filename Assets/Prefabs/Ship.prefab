@@ -9,9 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4665244167731324028}
-  - component: {fileID: 765016897}
   - component: {fileID: 765016898}
-  - component: {fileID: 765016900}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -35,22 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &765016897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 481792213084818852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8c42a0e4d9493f4b8f3e3800b259fa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _angularSpeed: 80
-  _angularDrag: 50
-  _currentAngularSpeed: 0
-  _cw: 0
 --- !u!114 &765016898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,23 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6af9801d9eeaa2442a6c2f3956a6cedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &765016900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 481792213084818852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d1699dc5bcec49458b53735f0f2e816, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _transformType: 1
-  _maxSpeed: 40
-  _gain: 3
-  _drag: 1
-  _currentSpeed: 0
+  _rotationSpeed: 120
+  _rotationAcceleration: 100
 --- !u!1 &7201834381546426146
 GameObject:
   m_ObjectHideFlags: 0
