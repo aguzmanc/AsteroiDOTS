@@ -40,10 +40,17 @@ public class Dragged2DTransform : MonoBehaviour
     }
 
 
-    /* Changes speed given a factor (-1 -> 1)*/
+    /* Changes speed given a factor (-1 -> 1) */
     public void Impulse(float factor) {
         _impulseFactor = Mathf.Clamp(factor, -1f, 1f);
     }
+
+
+    public void FixedSpeed(float speed) {
+        _maxSpeed = Mathf.Abs(speed);
+        _currentSpeed = speed;
+    }
+    
 
 #endregion
 

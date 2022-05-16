@@ -16,8 +16,17 @@ public class AsteroidCreator : MonoBehaviour
     EntityManager _mgr;
     Entity _asteroidECSPrototype;
 
+    IEnumerator Start() {
+        yield return new WaitForSeconds(1);
+        for(int i=0;i<_totalAsteroids;i++) {
+            Asteroid asteroid = Instantiate(_asteroidPrototype).GetComponent<Asteroid>();
+            asteroid.Setup(40f, new Vector2(1,4));
+        }
+        
+    }
 
-    IEnumerator Start()
+
+    IEnumerator _Start()
     {
         _mgr =  World.DefaultGameObjectInjectionWorld.EntityManager;
         var settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, null);
