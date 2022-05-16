@@ -8,10 +8,18 @@ public class AsteroidCreator : MonoBehaviour
 {
     [SerializeField]
     GameObject _asteroidPrototype;
+
     [SerializeField]
     [Range(1,999999)]
     int _totalAsteroids=100;
 
+    [SerializeField]
+    [Range(0, 200)]
+    float _maxAngleSpeed = 20f;
+
+    [SerializeField]
+    [Range(0f, 10f)]
+    float _maxImpulse = 4f;
 
     EntityManager _mgr;
     Entity _asteroidECSPrototype;
@@ -19,10 +27,13 @@ public class AsteroidCreator : MonoBehaviour
     IEnumerator Start() {
         yield return new WaitForSeconds(1);
         for(int i=0;i<_totalAsteroids;i++) {
-            Asteroid asteroid = Instantiate(_asteroidPrototype).GetComponent<Asteroid>();
-            asteroid.Setup(40f, new Vector2(1,4));
+            Asteroid asteroid = GenerateAsteroid();
+
+            float x = Random.Range(ScreenLimits.leftLimit, ScreenLimits.rightLimit);
+            float y = Random.Range(ScreenLimits.downLimit, ScreenLimits.upLimit);
+
+            asteroid.transform.position = new Vector3(x,y,0);
         }
-        
     }
 
 
@@ -48,9 +59,15 @@ public class AsteroidCreator : MonoBehaviour
     }
 
 
-    void GenerateAsteroid() 
+    Asteroid GenerateAsteroid() 
     {
-        Vector3 pos = Random.onUnitSphere * Random.Range(1f, 5f);
-        Instantiate(_asteroidPrototype, pos, Quaternion.identity);
+        Asteroid asteroid = Instantiate(_asteroidPrototype).GetComponent<Asteroid>();
+
+        asteroid.Setup(
+            Random.Range(-_maxAngleSpeed, _maxAngleSpeed),
+            Random.insideUnitCircle.normalized * Random.Range(0f, _maxImpulse)
+        );
+
+        return asteroid;
     }
 }
