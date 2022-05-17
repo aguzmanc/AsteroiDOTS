@@ -1,5 +1,51 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &687410821
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 687410822}
+  - component: {fileID: 687410823}
+  m_Layer: 0
+  m_Name: BulletGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &687410822
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 687410821}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.379, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4665244167731324028}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &687410823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 687410821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbdb192eedc50184b8b59ffca98f1dad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletPrototype: {fileID: 3398619820647659565, guid: baf52c0d8a2774d42823c2dcf0114e1f, type: 3}
+  _speed: 30
+  _lifetime: 1
 --- !u!1 &481792213084818852
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,6 +56,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4665244167731324028}
   - component: {fileID: 765016898}
+  - component: {fileID: 1118084226}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -30,6 +77,7 @@ Transform:
   m_Children:
   - {fileID: 7488911642970906811}
   - {fileID: 1012158999965873073}
+  - {fileID: 687410822}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -46,7 +94,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotationSpeed: 120
-  _rotationAcceleration: 100
+  _rotationAcceleration: 200
+  _movementSpeed: 10
+  _movementAcceleration: 10
+  _bulletGenerator: {fileID: 687410823}
+--- !u!114 &1118084226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481792213084818852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6336f6f91f28ef8409169bf7078cc595, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7201834381546426146
 GameObject:
   m_ObjectHideFlags: 0
@@ -63,7 +126,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1012158999965873073
 Transform:
   m_ObjectHideFlags: 0
@@ -249,8 +312,8 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 2, z: 0}
-  - {x: -1, y: 0, z: 0}
-  - {x: 1, y: 0, z: 0}
+  - {x: -0.7, y: 0, z: 0}
+  - {x: 0.7, y: 0, z: 0}
   - {x: 0, y: 2, z: 0}
   m_Parameters:
     serializedVersion: 3

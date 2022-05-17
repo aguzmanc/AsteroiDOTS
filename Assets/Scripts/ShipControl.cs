@@ -22,6 +22,10 @@ public class ShipControl : MonoBehaviour
     [Range(30,200)]
     float _movementAcceleration = 10;
 
+    [Header("INNER SETUP")]
+    [SerializeField]
+    BulletGenerator _bulletGenerator;
+
 
     Dragged2DTransform _rot;
     Dragged2DTransform _trX;
@@ -51,6 +55,9 @@ public class ShipControl : MonoBehaviour
 
     void Update() 
     {
+        if(Input.GetKeyDown(KeyCode.Space)) 
+            _bulletGenerator.GenerateBullet();
+
         if(Input.GetKey(KeyCode.RightArrow))
             _rot.Impulse(-1f);
 
