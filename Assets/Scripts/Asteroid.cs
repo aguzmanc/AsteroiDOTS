@@ -6,6 +6,11 @@ public class Asteroid : MonoBehaviour
 {
     Dragged2DTransform rot,tx,ty;
 
+    [Header("Internal Setup")]
+    [SerializeField]
+    HitDetector _detector;
+
+
     public void Setup(float rotation, Vector2 impulse) {
         if(rot==null&&tx==null&&ty==null) {
             rot = gameObject.AddComponent<Dragged2DTransform>();
@@ -25,5 +30,16 @@ public class Asteroid : MonoBehaviour
 
         tx.FixedSpeed(unit.x * speed);
         ty.FixedSpeed(unit.y * speed);
+    }
+
+
+    void Start() {
+        _detector.onHitDetected += OnHitDetected;
+    }
+
+
+    void OnHitDetected(Detectable detectable) {
+        Destroy(detectable.parentObject);
+        Destroy(gameObject);
     }
 }

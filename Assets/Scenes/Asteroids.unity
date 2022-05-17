@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _asteroidPrototype: {fileID: 7308550185996697948, guid: 783bc286da723e64fade63a19bb1929d, type: 3}
-  _totalAsteroids: 50
+  _totalAsteroids: 5
   _maxAngleSpeed: 20
   _maxImpulse: 2
 --- !u!4 &1766587329
@@ -370,6 +370,10 @@ PrefabInstance:
     - target: {fileID: 481792213084818852, guid: e7d19c1b7557a0a4baa203016e9399e7, type: 3}
       propertyPath: m_Name
       value: Ship
+      objectReference: {fileID: 0}
+    - target: {fileID: 481792213084818852, guid: e7d19c1b7557a0a4baa203016e9399e7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4665244167731324028, guid: e7d19c1b7557a0a4baa203016e9399e7, type: 3}
       propertyPath: m_RootOrder
