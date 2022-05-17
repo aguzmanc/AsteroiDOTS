@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4882969139483783529}
   - component: {fileID: 1373221927183808417}
   m_Layer: 0
-  m_Name: Line (2)
+  m_Name: line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,7 +90,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.7067299
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 4927339825378302957}
   - component: {fileID: -4528527470017500414}
   m_Layer: 0
-  m_Name: Asteroid
+  m_Name: BigAsteroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -70,7 +70,6 @@ public class ShipControl : MonoBehaviour
             _trY.Impulse(transform.up.y);
         }
 
-
         if(Input.GetKey(KeyCode.DownArrow)){
             _trX.Impulse(-transform.up.x);
             _trY.Impulse(-transform.up.y);

@@ -4,11 +4,25 @@ using UnityEngine;
 
 public class Asteroid : MonoBehaviour
 {
+    const int TOTAL_ASTEROIDS_AFTER_EXPLOSSION = 3;
+
+    public enum AsteroidType {
+        Big = 1,
+        Medium = 2,
+        Small = 3
+    } 
+
     Dragged2DTransform rot,tx,ty;
 
     [Header("Internal Setup")]
     [SerializeField]
+    AsteroidType _type = AsteroidType.Big;
+
+    [SerializeField]
     HitDetector _detector;
+
+
+    public AsteroidType type {get=>_type; set{_type=value;}}
 
 
     public void Setup(float rotation, Vector2 impulse) {
@@ -38,8 +52,15 @@ public class Asteroid : MonoBehaviour
     }
 
 
+    /* Should be hit with bullets */
     void OnHitDetected(Detectable detectable) {
         Destroy(detectable.parentObject);
         Destroy(gameObject);
+        
+        // create secondary asteroids after being hit
+        if(_type==AsteroidType.Big)
+            AsteroidCreator.CreateMediumAsteroids(TOTAL_ASTEROIDS_AFTER_EXPLOSSION, transform.position);
+        else if (_type==AsteroidType.Medium)
+            AsteroidCreator.CreateSmallAsteroids(TOTAL_ASTEROIDS_AFTER_EXPLOSSION, transform.position);
     }
 }

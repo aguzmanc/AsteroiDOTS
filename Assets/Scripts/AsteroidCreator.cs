@@ -6,34 +6,87 @@ using Unity.Entities;
 
 public class AsteroidCreator : MonoBehaviour
 {
-    [SerializeField]
-    GameObject _asteroidPrototype;
+    static AsteroidCreator _instance;
 
     [SerializeField]
     [Range(1,999999)]
-    int _totalAsteroids=100;
+    int _asteroidsAtBeginning=100;
+
+    [Header("Big Asteroids")]
+    [SerializeField]
+    GameObject _bigAsteroidPrototype;
 
     [SerializeField]
     [Range(0, 200)]
-    float _maxAngleSpeed = 20f;
+    float _bigMaxAngleSpeed = 20f;
 
     [SerializeField]
     [Range(0f, 10f)]
-    float _maxImpulse = 4f;
+    float _bigMaxImpulse = 4f;
+
+
+    [Header("Medium Asteroids")]
+    [SerializeField]
+    GameObject _mediumAsteroidPrototype;
+
+    [SerializeField]
+    [Range(0, 200)]
+    float _mediumMaxAngleSpeed = 20f;
+
+    [SerializeField]
+    [Range(0f, 10f)]
+    float _mediumMaxImpulse = 4f;
+
+
+    [Header("Small Asteroids")]
+    [SerializeField]
+    GameObject _smallAsteroidPrototype;
+
+    [SerializeField]
+    [Range(0, 200)]
+    float _smallMaxAngleSpeed = 20f;
+
+    [SerializeField]
+    [Range(0f, 10f)]
+    float _smallMaxImpulse = 4f;
+
 
     EntityManager _mgr;
     Entity _asteroidECSPrototype;
 
-    IEnumerator Start() {
-        yield return new WaitForSeconds(1);
-        for(int i=0;i<_totalAsteroids;i++) {
-            Asteroid asteroid = GenerateAsteroid();
 
-            float x = Random.Range(ScreenLimits.leftLimit, ScreenLimits.rightLimit);
-            float y = Random.Range(ScreenLimits.downLimit, ScreenLimits.upLimit);
+    public static void CreateMediumAsteroids(int total, Vector2 position) 
+    {
+        _instance._CreateMediumAsteroids(total, position);
+    }
 
-            asteroid.transform.position = new Vector3(x,y,0);
+    public static void CreateSmallAsteroids(int total, Vector2 position) 
+    {
+        _instance._CreateSmallAsteroids(total, position);
+    }
+
+
+    /* When a big asteroid explodes*/
+    void _CreateMediumAsteroids(int total, Vector2 position) {
+        for(int i=0;i<total;i++) {
+            Asteroid asteroid = GenerateAsteroid(_mediumAsteroidPrototype, _mediumMaxAngleSpeed, _mediumMaxImpulse);
+            asteroid.transform.position = new Vector3(position.x, position.y,0);
+            asteroid.type = Asteroid.AsteroidType.Medium;
         }
+    }
+
+    void _CreateSmallAsteroids(int total, Vector2 position) {
+        for(int i=0;i<total;i++) {
+            Asteroid asteroid = GenerateAsteroid(_smallAsteroidPrototype, _smallMaxAngleSpeed, _smallMaxImpulse);
+            asteroid.transform.position = new Vector3(position.x, position.y,0);
+            asteroid.type = Asteroid.AsteroidType.Small;
+        }
+    }
+
+
+    void Awake() {
+        _instance = this;
+        GameController.onGameStarted += OnGameStarted;
     }
 
 
@@ -42,15 +95,16 @@ public class AsteroidCreator : MonoBehaviour
         _mgr =  World.DefaultGameObjectInjectionWorld.EntityManager;
         var settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, null);
         _asteroidECSPrototype = GameObjectConversionUtility.ConvertGameObjectHierarchy(
-                _asteroidPrototype, settings);
+                _bigAsteroidPrototype, settings);
 
         Debug.Log("generation in 3...");
         yield return new WaitForSeconds(3f);
 
         float initTime = Time.realtimeSinceStartup;
         Debug.Log("init time: " + Time.time);
-        for(int i=0;i<_totalAsteroids;i++)
+        /*for(int i=0;i<_asteroidsAtBeginning;i++)
             GenerateAsteroid();
+            */
 
         float diff = (Time.realtimeSinceStartup - initTime);
 
@@ -59,13 +113,27 @@ public class AsteroidCreator : MonoBehaviour
     }
 
 
-    Asteroid GenerateAsteroid() 
+    void OnGameStarted() {
+        /* Create big asteroids */
+        for(int i=0;i<_asteroidsAtBeginning;i++) {
+            Asteroid asteroid = GenerateAsteroid(_bigAsteroidPrototype, _bigMaxAngleSpeed, _bigMaxImpulse);
+
+            float x = Random.Range(ScreenLimits.leftLimit, ScreenLimits.rightLimit);
+            float y = Random.Range(ScreenLimits.downLimit, ScreenLimits.upLimit);
+
+            asteroid.transform.position = new Vector3(x,y,0);
+            asteroid.type = Asteroid.AsteroidType.Big;
+        }
+    }
+
+
+    Asteroid GenerateAsteroid(GameObject prototype, float maxAngleSpeed, float maxImpulse) 
     {
-        Asteroid asteroid = Instantiate(_asteroidPrototype).GetComponent<Asteroid>();
+        Asteroid asteroid = Instantiate(prototype).GetComponent<Asteroid>();
 
         asteroid.Setup(
-            Random.Range(-_maxAngleSpeed, _maxAngleSpeed),
-            Random.insideUnitCircle.normalized * Random.Range(0f, _maxImpulse)
+            Random.Range(-maxAngleSpeed, maxAngleSpeed),
+            Random.insideUnitCircle.normalized * Random.Range(0f, maxImpulse)
         );
 
         return asteroid;
