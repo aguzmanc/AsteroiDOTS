@@ -55,6 +55,12 @@ public class Asteroid : MonoBehaviour
     /* Should be hit with bullets */
     void OnHitDetected(Detectable detectable) {
         Destroy(detectable.parentObject);
+        ExplodeAsteroid();
+    }
+
+
+    public void ExplodeAsteroid()
+    {
         Destroy(gameObject);
 
         // create secondary asteroids after being hit

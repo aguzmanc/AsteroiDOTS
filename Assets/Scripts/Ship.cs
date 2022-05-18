@@ -20,6 +20,9 @@ public class Ship : MonoBehaviour
 
     void OnAsteroidHit(Detectable detectable) 
     {
+        Asteroid asteroid = detectable.parentObject.GetComponent<Asteroid>();
+        asteroid.ExplodeAsteroid();
+
         Instantiate(_shipExplossion, transform.position, Quaternion.identity);
 
         GameController.GameOver();
