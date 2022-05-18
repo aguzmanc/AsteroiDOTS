@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Ship))]
 public class ShipControl : MonoBehaviour
 {
     [Header("-- ROTATION --")]
@@ -27,9 +28,14 @@ public class ShipControl : MonoBehaviour
     BulletGenerator _bulletGenerator;
 
 
+    Ship _ship;
     Dragged2DTransform _rot;
     Dragged2DTransform _trX;
     Dragged2DTransform _trY;
+
+    void Awake() {
+        _ship = GetComponent<Ship>();
+    }
 
     void Start() 
     {
@@ -68,6 +74,9 @@ public class ShipControl : MonoBehaviour
         if(Input.GetKey(KeyCode.UpArrow)){
             _trX.Impulse(transform.up.x);
             _trY.Impulse(transform.up.y);
+            _ship.withImpulse = true;
+        } else {
+            _ship.withImpulse = false;
         }
 
         if(Input.GetKey(KeyCode.DownArrow)){

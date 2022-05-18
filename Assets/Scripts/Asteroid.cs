@@ -61,6 +61,8 @@ public class Asteroid : MonoBehaviour
 
     public void ExplodeAsteroid()
     {
+        GameController.NotifyAsteroidDestroyed(_type);
+
         Destroy(gameObject);
 
         // create secondary asteroids after being hit

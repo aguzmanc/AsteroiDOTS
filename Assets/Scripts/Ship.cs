@@ -12,6 +12,11 @@ public class Ship : MonoBehaviour
     GameObject _shipExplossion;
 
 
+    bool _withImpulse;
+
+    public bool withImpulse{get=>_withImpulse; set{_withImpulse=value;}}
+
+
     void Start()
     {
         _asteroidDetector.onHitDetected += OnAsteroidHit;
