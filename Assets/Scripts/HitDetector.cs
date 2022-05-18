@@ -15,15 +15,28 @@ public class HitDetector : MonoBehaviour
     [SerializeField]
     ObjectType _type;
 
+
+    public int _objectsDetected;
+
+    public int objectsDetected => _objectsDetected;
+
+
     public System.Action<Detectable> onHitDetected;
+
+
+    void Awake() 
+    {
+        _objectsDetected = 0;
+    }
 
 
     void OnTriggerEnter2D(Collider2D other) 
     {
         Detectable detectable = other.GetComponent<Detectable>();
 
-        if(other.GetComponent<Detectable>()) {
+        if(detectable) {
             if(other.tag == _type.ToString()) {
+                _objectsDetected ++ ;
                 if(onHitDetected != null) 
                     onHitDetected(detectable);
             }
@@ -31,13 +44,14 @@ public class HitDetector : MonoBehaviour
     }
 
 
-    void Start()
+    void OnTriggerExit2D(Collider2D other) 
     {
-        
-    }
+        Detectable detectable = other.GetComponent<Detectable>();
 
-    void Update()
-    {
-        
+        if(detectable) {
+            if(other.tag == _type.ToString()) {
+                _objectsDetected -- ;
+            }
+        }
     }
 }

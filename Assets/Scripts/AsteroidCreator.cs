@@ -6,6 +6,8 @@ using Unity.Entities;
 
 public class AsteroidCreator : MonoBehaviour
 {
+    const int EXCLUSION_RADIUS = 7;
+
     static AsteroidCreator _instance;
 
 
@@ -123,12 +125,16 @@ public class AsteroidCreator : MonoBehaviour
         /* Create big asteroids */
         for(int i=0;i<_asteroidsAtBeginning;i++) {
             Asteroid asteroid = GenerateAsteroid(_bigAsteroidPrototype, _bigMaxAngleSpeed, _bigMaxImpulse);
-
-            float x = Random.Range(ScreenLimits.leftLimit, ScreenLimits.rightLimit);
-            float y = Random.Range(ScreenLimits.downLimit, ScreenLimits.upLimit);
-
-            asteroid.transform.position = new Vector3(x,y,0);
             asteroid.type = Asteroid.AsteroidType.Big;
+
+            Vector2 pos;
+            do{
+                float x = Random.Range(ScreenLimits.leftLimit, ScreenLimits.rightLimit);
+                float y = Random.Range(ScreenLimits.downLimit, ScreenLimits.upLimit);
+
+                pos = new Vector2(x,y);
+                asteroid.transform.position = pos;//new Vector3(x,y,0);
+            } while(pos.magnitude < EXCLUSION_RADIUS);
         }
     }
 

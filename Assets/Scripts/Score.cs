@@ -21,6 +21,11 @@ public class Score : MonoBehaviour
         GameController.onAsteroidDestroyed -= OnAsteroidDestroyed;
     }
 
+    void Update() 
+    {
+        _text.gameObject.SetActive(GameController.gameStarted);
+    }
+
 
     void OnAsteroidDestroyed(int totalPoints) 
     {

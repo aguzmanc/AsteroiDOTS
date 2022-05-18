@@ -30,7 +30,8 @@ public class Ship : MonoBehaviour
 
         Instantiate(_shipExplossion, transform.position, Quaternion.identity);
 
-        GameController.GameOver();
+        GameController.NotifyShipDestroyed();
+        
         Destroy(gameObject);
     }
 }

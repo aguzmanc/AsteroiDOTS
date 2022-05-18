@@ -5,13 +5,12 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     static GameController _instance;
+    const int LIFES_BEFORE_OVER = 3;
 
     bool _gameStarted = false;
     bool _gameOver = false;
     int _points;
-
-    [SerializeField]
-    GameObject _shipPrototype;
+    int _lifesRemain;
 
     [SerializeField]
     [Range(0f, 1000f)]
@@ -24,6 +23,10 @@ public class GameController : MonoBehaviour
     [SerializeField]
     [Range(0f, 1000f)]
     int _pointsPerSmallAsteroid = 70;
+
+    [Header("Internal Setup")]
+    [SerializeField]
+    ShipCreator _shipCreator;
 
 
     public static System.Action<int> onAsteroidDestroyed;
@@ -39,9 +42,9 @@ public class GameController : MonoBehaviour
         _instance._gameStarted = true;
         _instance._gameOver = false;
         _instance._points = 0;
+        _instance._lifesRemain = LIFES_BEFORE_OVER;
 
-        // creates the ship
-        Instantiate(_instance._shipPrototype, Vector3.zero, Quaternion.identity);
+        _instance._shipCreator.CreateShip();
 
         if(onGameStarted!=null)
             onGameStarted();
@@ -57,6 +60,11 @@ public class GameController : MonoBehaviour
             onGameOver();
     }
 
+    public static void NotifyShipDestroyed()
+    {
+        _instance._NotifyShipDestroyed();
+    }
+
 
     public static void NotifyAsteroidDestroyed(Asteroid.AsteroidType type)
     {
@@ -70,6 +78,15 @@ public class GameController : MonoBehaviour
     void Awake()
     {
         _instance = this;
+    }
+
+
+    void _NotifyShipDestroyed() {
+        _lifesRemain --;
+        if(_lifesRemain > 0) {
+
+        } else 
+            GameOver();
     }
 
 
