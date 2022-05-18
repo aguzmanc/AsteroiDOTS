@@ -54,13 +54,18 @@ public class Asteroid : MonoBehaviour
 
     /* Should be hit with bullets */
     void OnHitDetected(Detectable detectable) {
+        
+
+
         Destroy(detectable.parentObject);
         Destroy(gameObject);
-        
+
         // create secondary asteroids after being hit
         if(_type==AsteroidType.Big)
             AsteroidCreator.CreateMediumAsteroids(TOTAL_ASTEROIDS_AFTER_EXPLOSSION, transform.position);
         else if (_type==AsteroidType.Medium)
             AsteroidCreator.CreateSmallAsteroids(TOTAL_ASTEROIDS_AFTER_EXPLOSSION, transform.position);
+        else if (_type==AsteroidType.Small)
+            Instantiate(AsteroidCreator.asteroidExplossion, transform.position, Quaternion.identity);
     }
 }

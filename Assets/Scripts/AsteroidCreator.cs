@@ -8,9 +8,13 @@ public class AsteroidCreator : MonoBehaviour
 {
     static AsteroidCreator _instance;
 
+
     [SerializeField]
     [Range(1,999999)]
     int _asteroidsAtBeginning=100;
+
+    [SerializeField]
+    GameObject _asteroidExplossion;
 
     [Header("Big Asteroids")]
     [SerializeField]
@@ -53,6 +57,8 @@ public class AsteroidCreator : MonoBehaviour
 
     EntityManager _mgr;
     Entity _asteroidECSPrototype;
+
+    public static GameObject asteroidExplossion => _instance._asteroidExplossion;
 
 
     public static void CreateMediumAsteroids(int total, Vector2 position) 

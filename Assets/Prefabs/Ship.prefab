@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _asteroidDetector: {fileID: 1492041808124392474}
+  _shipExplossion: {fileID: 3239440849432465875, guid: e76597d4a23b7ad4398d2f6efb780241, type: 3}
 --- !u!1 &7201834381546426146
 GameObject:
   m_ObjectHideFlags: 0

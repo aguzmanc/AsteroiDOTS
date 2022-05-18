@@ -632,14 +632,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _asteroidsAtBeginning: 15
+  _asteroidExplossion: {fileID: 5434991376829362097, guid: 52c0a7be575bd454bb984af63be379d4, type: 3}
   _bigAsteroidPrototype: {fileID: 7308550185996697948, guid: 783bc286da723e64fade63a19bb1929d, type: 3}
-  _bigMaxAngleSpeed: 10
+  _bigMaxAngleSpeed: 20
   _bigMaxImpulse: 1
   _mediumAsteroidPrototype: {fileID: 5011100437545544289, guid: dd66840b667125744969f7f3b360df36, type: 3}
-  _mediumMaxAngleSpeed: 20
+  _mediumMaxAngleSpeed: 60
   _mediumMaxImpulse: 4
   _smallAsteroidPrototype: {fileID: 7908032939057579356, guid: 06b5401bc94b0c1419217717b340917f, type: 3}
-  _smallMaxAngleSpeed: 40
+  _smallMaxAngleSpeed: 120
   _smallMaxImpulse: 7
 --- !u!4 &1766587329
 Transform:

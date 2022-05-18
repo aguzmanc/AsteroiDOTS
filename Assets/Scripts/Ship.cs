@@ -8,13 +8,20 @@ public class Ship : MonoBehaviour
     [SerializeField]
     HitDetector _asteroidDetector;
 
+    [SerializeField]
+    GameObject _shipExplossion;
+
+
     void Start()
     {
         _asteroidDetector.onHitDetected += OnAsteroidHit;
     }
 
+
     void OnAsteroidHit(Detectable detectable) 
     {
+        Instantiate(_shipExplossion, transform.position, Quaternion.identity);
+
         GameController.GameOver();
         Destroy(gameObject);
     }
