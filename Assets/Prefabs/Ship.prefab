@@ -393,6 +393,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4665244167731324028}
     m_Modifications:
+    - target: {fileID: 618360665661595886, guid: 7d4ada9bb23d1b342b2406feeb2415d3, type: 3}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2979714534500547606, guid: 7d4ada9bb23d1b342b2406feeb2415d3, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -444,6 +448,10 @@ PrefabInstance:
     - target: {fileID: 2979714534500547608, guid: 7d4ada9bb23d1b342b2406feeb2415d3, type: 3}
       propertyPath: _type
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2979714534500547609, guid: 7d4ada9bb23d1b342b2406feeb2415d3, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d4ada9bb23d1b342b2406feeb2415d3, type: 3}

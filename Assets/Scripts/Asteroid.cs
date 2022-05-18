@@ -54,9 +54,6 @@ public class Asteroid : MonoBehaviour
 
     /* Should be hit with bullets */
     void OnHitDetected(Detectable detectable) {
-        
-
-
         Destroy(detectable.parentObject);
         Destroy(gameObject);
 
