@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PushStartButton : MonoBehaviour
+public class UIPushStartButton : MonoBehaviour
 {
     [Header("Internal Setup")]
     [SerializeField]

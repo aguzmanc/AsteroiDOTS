@@ -121,7 +121,7 @@ public class AsteroidCreator : MonoBehaviour
     }
 
 
-    void OnGameStarted() {
+    void OnGameStarted(int ships) {
         /* Create big asteroids */
         for(int i=0;i<_asteroidsAtBeginning;i++) {
             Asteroid asteroid = GenerateAsteroid(_bigAsteroidPrototype, _bigMaxAngleSpeed, _bigMaxImpulse);
