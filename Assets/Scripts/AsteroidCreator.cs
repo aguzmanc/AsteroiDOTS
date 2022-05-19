@@ -95,6 +95,13 @@ public class AsteroidCreator : MonoBehaviour
     void Awake() {
         _instance = this;
         GameController.onGameStarted += OnGameStarted;
+        GameController.onAllAsteroidsDestroyed += OnAllAsteroidsDestroyed;
+    }
+
+
+    void OnDestroy() {
+        GameController.onGameStarted -= OnGameStarted;
+        GameController.onAllAsteroidsDestroyed -= OnAllAsteroidsDestroyed;
     }
 
 
@@ -122,6 +129,16 @@ public class AsteroidCreator : MonoBehaviour
 
 
     void OnGameStarted(int ships) {
+        GenerateAsteroidCloud();
+    }
+
+    void OnAllAsteroidsDestroyed()
+    {
+        Invoke("GenerateAsteroidCloud", 1f);
+    }
+
+
+    void GenerateAsteroidCloud() {
         /* Create big asteroids */
         for(int i=0;i<_asteroidsAtBeginning;i++) {
             Asteroid asteroid = GenerateAsteroid(_bigAsteroidPrototype, _bigMaxAngleSpeed, _bigMaxImpulse);
@@ -147,6 +164,8 @@ public class AsteroidCreator : MonoBehaviour
             Random.Range(-maxAngleSpeed, maxAngleSpeed),
             Random.insideUnitCircle.normalized * Random.Range(0f, maxImpulse)
         );
+
+        GameController.NotifyAsteroidCreated();
 
         return asteroid;
     }

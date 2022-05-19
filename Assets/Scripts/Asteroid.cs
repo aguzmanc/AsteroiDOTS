@@ -77,8 +77,6 @@ public class Asteroid : MonoBehaviour
     {
         GameController.NotifyAsteroidDestroyed(_type);
 
-        Destroy(gameObject);
-
         // create secondary asteroids after being hit
         if(_type==AsteroidType.Big)
             AsteroidCreator.CreateMediumAsteroids(TOTAL_ASTEROIDS_AFTER_EXPLOSSION, transform.position);
@@ -86,5 +84,7 @@ public class Asteroid : MonoBehaviour
             AsteroidCreator.CreateSmallAsteroids(TOTAL_ASTEROIDS_AFTER_EXPLOSSION, transform.position);
         else if (_type==AsteroidType.Small)
             Instantiate(AsteroidCreator.asteroidExplossion, transform.position, Quaternion.identity);
+
+        Destroy(gameObject);
     }
 }

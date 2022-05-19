@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     bool _gameOver = false;
     int _points;
     int _shipsRemain;
+    int _currentAsteroidsCount;
 
     [SerializeField]
     [Range(0f, 1000f)]
@@ -30,10 +31,11 @@ public class GameController : MonoBehaviour
     ShipCreator _shipCreator;
 
 
+    public static System.Action<int> onGameStarted;
+    public static System.Action onLobby;
+    public static System.Action onAllAsteroidsDestroyed;
     public static System.Action<int> onAsteroidDestroyed;
     public static System.Action<int> onShipDestroyed;
-    public static System.Action onLobby;
-    public static System.Action<int> onGameStarted;
     public static System.Action onGameOver;
     public static bool inLobby => _instance._inLobby;
     public static bool gameStarted => _instance._gameStarted;
@@ -82,10 +84,24 @@ public class GameController : MonoBehaviour
     }
 
 
+    public static void NotifyAsteroidCreated()
+    {
+        _instance._currentAsteroidsCount ++;
+    }
+
+
     public static void NotifyAsteroidDestroyed(Asteroid.AsteroidType type)
     {
+        _instance._currentAsteroidsCount --;
         _instance._NotifyAsteroidDestroyed(type);
+
+        if(_instance._currentAsteroidsCount==0) {
+            if(onAllAsteroidsDestroyed!=null) 
+                onAllAsteroidsDestroyed();
+        }
     }
+
+
 
 
     
