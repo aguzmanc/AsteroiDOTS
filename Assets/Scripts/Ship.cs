@@ -9,6 +9,9 @@ public class Ship : MonoBehaviour
     HitDetector _asteroidDetector;
 
     [SerializeField]
+    HitDetector _UFOBulletDetector;
+
+    [SerializeField]
     GameObject _shipExplossion;
 
 
@@ -20,12 +23,16 @@ public class Ship : MonoBehaviour
     void Start()
     {
         _asteroidDetector.onHitDetected += OnAsteroidHit;
+        _UFOBulletDetector.onHitDetected += OnUFOBulletHit;
         GameController.RegisterShip(this);
     }
 
 
     void OnDestroy() {
         GameController.RegisterShip(null);
+
+        _asteroidDetector.onHitDetected -= OnAsteroidHit;
+        _UFOBulletDetector.onHitDetected -= OnUFOBulletHit;
     }
 
 
@@ -34,10 +41,19 @@ public class Ship : MonoBehaviour
         Asteroid asteroid = detectable.parentObject.GetComponent<Asteroid>();
         asteroid.ExplodeAsteroid();
 
-        Instantiate(_shipExplossion, transform.position, Quaternion.identity);
+        DestroyShip();
+    }
+    
 
+    void OnUFOBulletHit(Detectable detectable) {
+        Destroy(detectable.parentObject);
+        DestroyShip();
+    }
+
+
+    void DestroyShip(){
+        Instantiate(_shipExplossion, transform.position, Quaternion.identity);
         GameController.NotifyShipDestroyed();
-        
         Destroy(gameObject);
     }
 }

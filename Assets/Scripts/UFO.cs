@@ -7,6 +7,10 @@ public class UFO : MonoBehaviour
     float _initialY;
     float _angle;
 
+    [SerializeField]
+    [Range(0f, 30f)]
+    int _showSeconds = 10;
+
     
     [SerializeField]
     float _speed = 3f;
@@ -20,7 +24,7 @@ public class UFO : MonoBehaviour
     HitDetector _bulletDetector;
 
     [SerializeField]
-    GameObject _explossion;
+    GameObject _explossionPrototype;
 
 
     void Awake()
@@ -32,6 +36,11 @@ public class UFO : MonoBehaviour
         
         _angle = 0f;
         _initialY = transform.position.y;
+    }
+
+    IEnumerator Start(){
+        yield return new WaitForSeconds(_showSeconds);
+        Destroy(gameObject);
     }
 
 
@@ -47,8 +56,7 @@ public class UFO : MonoBehaviour
 
     void OnBulletDetected(Detectable detectable) 
     {
-        _explossion.transform.SetParent(null);
-        _explossion.SetActive(true);
+        Instantiate(_explossionPrototype, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 

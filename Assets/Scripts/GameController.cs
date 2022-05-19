@@ -6,6 +6,7 @@ public class GameController : MonoBehaviour
 {
     static GameController _instance;
     const int LIFES_BEFORE_OVER = 3;
+    const int DELAY_TO_CREATE_NEW_SHIP = 2;
 
     bool _inLobby = true;
     bool _gameStarted = false;
@@ -64,7 +65,7 @@ public class GameController : MonoBehaviour
         _instance._points = 0;
         _instance._shipsRemain = LIFES_BEFORE_OVER;
 
-        _instance._shipCreator.CreateShip();
+        _instance._shipCreator.CreateShip(0f);
 
         if(onGameStarted!=null)
             onGameStarted(_instance._shipsRemain);
@@ -134,7 +135,7 @@ public class GameController : MonoBehaviour
             onShipDestroyed(_shipsRemain);
 
         if(_shipsRemain > 0) {
-            _instance._shipCreator.CreateShip();
+            _instance._shipCreator.CreateShip(DELAY_TO_CREATE_NEW_SHIP);
         } else 
             GameOver();
     }

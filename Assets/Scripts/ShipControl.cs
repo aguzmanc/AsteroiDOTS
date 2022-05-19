@@ -25,7 +25,7 @@ public class ShipControl : MonoBehaviour
 
     [Header("INNER SETUP")]
     [SerializeField]
-    BulletGenerator _bulletGenerator;
+    BulletShooter _bulletShooter;
 
 
     Ship _ship;
@@ -62,7 +62,7 @@ public class ShipControl : MonoBehaviour
     void Update() 
     {
         if(Input.GetKeyDown(KeyCode.Space)) 
-            _bulletGenerator.GenerateBullet();
+            _bulletShooter.GenerateBullet();
 
         if(Input.GetKey(KeyCode.RightArrow))
             _rot.Impulse(-1f);

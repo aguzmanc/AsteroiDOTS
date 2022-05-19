@@ -13,13 +13,13 @@ public class ShipCreator : MonoBehaviour
     [SerializeField]
     GameObject _shipPrototype;
 
-    public void CreateShip() {
-        StartCoroutine(ShipCreation());
+    public void CreateShip(float delay) {
+        StartCoroutine(ShipCreation(delay));
     }
 
 
-    IEnumerator ShipCreation() {
-        yield return new WaitForSeconds(0.1f);
+    IEnumerator ShipCreation(float delay=0.5f) {
+        yield return new WaitForSeconds(delay);
         yield return new WaitWhile(()=>(_asteroidDetector.objectsDetected>0));
         // creates the ship
         Instantiate(_shipPrototype, Vector3.zero, Quaternion.identity);

@@ -411,8 +411,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1209b85925515d24eb2d158643e84d47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minUfoTime: 10
-  _maxUfoTime: 25
+  _minUfoTime: 15
+  _maxUfoTime: 30
   _ufoPrototype: {fileID: 4560611506959032920, guid: 235a74cc3943621409bb7f69b8816e40, type: 3}
 --- !u!1 &1541557726
 GameObject:
