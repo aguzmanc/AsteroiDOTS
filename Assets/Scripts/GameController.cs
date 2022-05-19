@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
     int _points;
     int _shipsRemain;
     int _currentAsteroidsCount;
+    Ship _currentShip;
 
     [SerializeField]
     [Range(0f, 1000f)]
@@ -40,6 +41,7 @@ public class GameController : MonoBehaviour
     public static bool inLobby => _instance._inLobby;
     public static bool gameStarted => _instance._gameStarted;
     public static bool gameOver => _instance._gameOver;
+    public static Ship currentShip => _instance._currentShip;
 
 
     public static void StartLobby() 
@@ -76,6 +78,11 @@ public class GameController : MonoBehaviour
 
         if(onGameOver != null)
             onGameOver();
+    }
+
+
+    public static void RegisterShip(Ship ship) {
+        _instance._currentShip = ship;
     }
 
     public static void NotifyShipDestroyed()

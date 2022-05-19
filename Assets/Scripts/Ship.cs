@@ -20,6 +20,12 @@ public class Ship : MonoBehaviour
     void Start()
     {
         _asteroidDetector.onHitDetected += OnAsteroidHit;
+        GameController.RegisterShip(this);
+    }
+
+
+    void OnDestroy() {
+        GameController.RegisterShip(null);
     }
 
 

@@ -8,7 +8,8 @@ public class HitDetector : MonoBehaviour
         Bullet      = 1,
         Asteroid    = 2,
         Ship        = 3,
-        UFO         = 4
+        UFO         = 4,
+        UFOBullet   = 5
     }
 
 

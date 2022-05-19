@@ -172,7 +172,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1766587329}
   - {fileID: 1541557728}
+  - {fileID: 1356544949}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -366,6 +368,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _margin: 2
+--- !u!1 &1356544948
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1356544949}
+  - component: {fileID: 1356544950}
+  m_Layer: 0
+  m_Name: UFOCreator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1356544949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356544948}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.1468515, y: -3.579527, z: -1.046764}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1018029218}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1356544950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356544948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1209b85925515d24eb2d158643e84d47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minUfoTime: 10
+  _maxUfoTime: 25
+  _ufoPrototype: {fileID: 4560611506959032920, guid: 235a74cc3943621409bb7f69b8816e40, type: 3}
 --- !u!1 &1541557726
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,7 +458,7 @@ Transform:
   m_Children:
   - {fileID: 8607324693318328258}
   m_Father: {fileID: 1018029218}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1549676170
 GameObject:
@@ -476,7 +524,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1578144873
 GameObject:
@@ -574,7 +622,7 @@ RectTransform:
   - {fileID: 841733381}
   - {fileID: 1982816875}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -610,7 +658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b58c5d4b4246e074e82b701da4039be3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _asteroidsAtBeginning: 5
+  _asteroidsAtBeginning: 10
   _asteroidExplossion: {fileID: 5434991376829362097, guid: 52c0a7be575bd454bb984af63be379d4, type: 3}
   _bigAsteroidPrototype: {fileID: 7308550185996697948, guid: 783bc286da723e64fade63a19bb1929d, type: 3}
   _bigMaxAngleSpeed: 100
@@ -628,12 +676,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1766587327}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.51355, y: -0.21713828, z: -12.107373}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 1018029218}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1861910411 stripped
 RectTransform:
