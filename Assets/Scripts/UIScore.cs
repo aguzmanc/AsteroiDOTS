@@ -12,12 +12,14 @@ public class UIScore : MonoBehaviour
 
     void Awake()
     {
+        GameController.onGameStarted += OnGameStarted;
         GameController.onAsteroidDestroyed += OnAsteroidDestroyed;
     }
 
 
     void OnDestroy()
     {
+        GameController.onGameStarted -= OnGameStarted;
         GameController.onAsteroidDestroyed -= OnAsteroidDestroyed;
     }
 
@@ -26,6 +28,11 @@ public class UIScore : MonoBehaviour
         _text.gameObject.SetActive(GameController.gameStarted);
     }
 
+
+
+    void OnGameStarted(int ships) {
+        _text.text = "00000";
+    }
 
     void OnAsteroidDestroyed(int totalPoints) 
     {

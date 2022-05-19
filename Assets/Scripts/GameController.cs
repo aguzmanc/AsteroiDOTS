@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour
     static GameController _instance;
     const int LIFES_BEFORE_OVER = 3;
 
+    bool _inLobby = true;
     bool _gameStarted = false;
     bool _gameOver = false;
     int _points;
@@ -31,15 +32,29 @@ public class GameController : MonoBehaviour
 
     public static System.Action<int> onAsteroidDestroyed;
     public static System.Action<int> onShipDestroyed;
+    public static System.Action onLobby;
     public static System.Action<int> onGameStarted;
     public static System.Action onGameOver;
+    public static bool inLobby => _instance._inLobby;
     public static bool gameStarted => _instance._gameStarted;
     public static bool gameOver => _instance._gameOver;
+
+
+    public static void StartLobby() 
+    {
+        _instance._inLobby = true;
+        _instance._gameStarted = false;
+        _instance._gameOver = false;
+
+        if(onLobby != null)
+            onLobby();
+    }
 
 
 
     public static void StartGame() 
     {
+        _instance._inLobby = false;
         _instance._gameStarted = true;
         _instance._gameOver = false;
         _instance._points = 0;
@@ -79,6 +94,13 @@ public class GameController : MonoBehaviour
     void Awake()
     {
         _instance = this;
+    }
+
+
+    IEnumerator Start() 
+    {
+        yield return new WaitForSeconds(1f);
+        StartLobby();
     }
 
 

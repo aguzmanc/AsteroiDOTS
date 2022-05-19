@@ -47,6 +47,15 @@ public class Asteroid : MonoBehaviour
     }
 
 
+    void Awake() {
+        GameController.onLobby += OnLobby;
+    }
+
+    void OnDestroy() { 
+        GameController.onLobby -= OnLobby;
+    }
+
+
     void Start() {
         _detector.onHitDetected += OnHitDetected;
     }
@@ -56,6 +65,11 @@ public class Asteroid : MonoBehaviour
     void OnHitDetected(Detectable detectable) {
         Destroy(detectable.parentObject);
         ExplodeAsteroid();
+    }
+
+
+    void OnLobby() {
+        DestroyImmediate(gameObject);
     }
 
 

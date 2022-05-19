@@ -8,10 +8,24 @@ public class UIPushStartButton : MonoBehaviour
     [SerializeField]
     GameObject _text;
 
+    void Awake() {
+        GameController.onLobby += OnLobby;
+    }
 
-    IEnumerator Start()
+    void OnDestroy() {
+        GameController.onLobby -= OnLobby;
+    }
+
+
+    void OnLobby()
     {
-        while(GameController.gameStarted==false) {
+        StartCoroutine(LobbySequence());
+    }
+
+
+    IEnumerator LobbySequence()
+    {
+        while(GameController.inLobby) {
             _text.SetActive(true);
             yield return new WaitForSeconds(0.5f);
             _text.SetActive(false);
@@ -21,7 +35,7 @@ public class UIPushStartButton : MonoBehaviour
 
     void Update()
     {
-        if(GameController.gameStarted == false) {
+        if(GameController.inLobby) {
             if(Input.GetKeyDown(KeyCode.Return)){
                 _text.SetActive(false);
                 GameController.StartGame();
