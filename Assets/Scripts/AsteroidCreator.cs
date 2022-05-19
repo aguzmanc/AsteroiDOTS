@@ -107,6 +107,7 @@ public class AsteroidCreator : MonoBehaviour
 
     IEnumerator _Start()
     {
+        // Continue here
         _mgr =  World.DefaultGameObjectInjectionWorld.EntityManager;
         var settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, null);
         _asteroidECSPrototype = GameObjectConversionUtility.ConvertGameObjectHierarchy(
