@@ -17,6 +17,9 @@ public class GameController : MonoBehaviour
     Ship _currentShip;
 
     [SerializeField]
+    bool _useECS;
+
+    [SerializeField]
     [Range(0f, 1000f)]
     int _pointsPerBigAsteroid = 20;
 
@@ -39,6 +42,8 @@ public class GameController : MonoBehaviour
     public static System.Action<int> onAsteroidDestroyed;
     public static System.Action<int> onShipDestroyed;
     public static System.Action onGameOver;
+
+    public static bool useECS => _instance._useECS;
     public static bool inLobby => _instance._inLobby;
     public static bool gameStarted => _instance._gameStarted;
     public static bool gameOver => _instance._gameOver;

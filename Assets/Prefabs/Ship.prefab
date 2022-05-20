@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletPrototype: {fileID: 3398619820647659565, guid: baf52c0d8a2774d42823c2dcf0114e1f, type: 3}
   _speed: 30
-  _lifetime: 1
+  _lifetime: 2
 --- !u!1 &481792213084818852
 GameObject:
   m_ObjectHideFlags: 0

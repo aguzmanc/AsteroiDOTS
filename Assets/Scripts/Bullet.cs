@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Entities;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour, IConvertGameObjectToEntity
 {
     Dragged2DTransform _trX;
     Dragged2DTransform _trY;
@@ -31,5 +32,24 @@ public class Bullet : MonoBehaviour
         _lifetime -= Time.deltaTime;
         if(_lifetime < 0f)
             Destroy(gameObject);
+    }
+
+
+    public void Convert(Entity entity, EntityManager mgr, GameObjectConversionSystem conversionSystem)
+    {
+        //mgr.AddComponentData(entity, new Inertia(){type=IntertiaType.TranslationX, maxSpeed=100, impulse=0, drag=0});
+        //mgr.AddComponentData(entity, new Inertia(){type=IntertiaType.TranslationY, maxSpeed=100, impulse=0, drag=0});
+
+        // Call methods on 'dstManager' to create runtime components on 'entity' here. Remember that:
+        //
+        // * You can add more than one component to the entity. It's also OK to not add any at all.
+        //
+        // * If you want to create more than one entity from the data in this class, use the 'conversionSystem'
+        //   to do it, instead of adding entities through 'dstManager' directly.
+        //
+        // For example,
+        //   dstManager.AddComponentData(entity, new Unity.Transforms.Scale { Value = scale });
+        
+        
     }
 }

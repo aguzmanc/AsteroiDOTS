@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Unity.Entities;
+using Unity.Transforms;
+using Unity.Mathematics;
 
 public class AsteroidCreator : MonoBehaviour
 {
@@ -59,6 +61,9 @@ public class AsteroidCreator : MonoBehaviour
 
     EntityManager _mgr;
     Entity _asteroidECSPrototype;
+    Entity _bigAsteroidECSPrototype;
+    Entity _mediumAsteroidECSPrototype;
+    Entity _smallAsteroidECSPrototype;
 
     public static GameObject asteroidExplossion => _instance._asteroidExplossion;
 
@@ -77,17 +82,24 @@ public class AsteroidCreator : MonoBehaviour
     /* When a big asteroid explodes*/
     void _CreateMediumAsteroids(int total, Vector2 position) {
         for(int i=0;i<total;i++) {
-            Asteroid asteroid = GenerateAsteroid(_mediumAsteroidPrototype, _mediumMaxAngleSpeed, _mediumMaxImpulse);
-            asteroid.transform.position = new Vector3(position.x, position.y,0);
-            asteroid.type = Asteroid.AsteroidType.Medium;
+            if(GameController.useECS)
+                GenerateECSASteroid(_mediumAsteroidECSPrototype, _mediumMaxAngleSpeed, _mediumMaxImpulse,
+                position.x, position.y, Asteroid.AsteroidType.Medium);
+            else
+                GenerateAsteroid(_mediumAsteroidPrototype, _mediumMaxAngleSpeed, _mediumMaxImpulse,
+                position.x, position.y, Asteroid.AsteroidType.Medium);
         }
     }
 
+
     void _CreateSmallAsteroids(int total, Vector2 position) {
         for(int i=0;i<total;i++) {
-            Asteroid asteroid = GenerateAsteroid(_smallAsteroidPrototype, _smallMaxAngleSpeed, _smallMaxImpulse);
-            asteroid.transform.position = new Vector3(position.x, position.y,0);
-            asteroid.type = Asteroid.AsteroidType.Small;
+            if(GameController.useECS)
+                GenerateECSASteroid(_smallAsteroidECSPrototype, _bigMaxAngleSpeed, _bigMaxImpulse,
+                    position.x, position.y, Asteroid.AsteroidType.Small);
+            else
+                GenerateAsteroid(_smallAsteroidPrototype, _smallMaxAngleSpeed, _smallMaxImpulse,
+                    position.x, position.y, Asteroid.AsteroidType.Small);
         }
     }
 
@@ -98,34 +110,22 @@ public class AsteroidCreator : MonoBehaviour
         GameController.onAllAsteroidsDestroyed += OnAllAsteroidsDestroyed;
     }
 
+    void Start(){
+        if(GameController.useECS) {
+            _mgr =  World.DefaultGameObjectInjectionWorld.EntityManager;
+            var settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, null);
+            _bigAsteroidECSPrototype = GameObjectConversionUtility.ConvertGameObjectHierarchy(_bigAsteroidPrototype, settings);
+            _mediumAsteroidECSPrototype = GameObjectConversionUtility.ConvertGameObjectHierarchy(_mediumAsteroidPrototype, settings);
+            _smallAsteroidECSPrototype = GameObjectConversionUtility.ConvertGameObjectHierarchy(_smallAsteroidPrototype, settings);
+        }
+    }
+
 
     void OnDestroy() {
         GameController.onGameStarted -= OnGameStarted;
         GameController.onAllAsteroidsDestroyed -= OnAllAsteroidsDestroyed;
     }
 
-
-    IEnumerator _Start()
-    {
-        _mgr =  World.DefaultGameObjectInjectionWorld.EntityManager;
-        var settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, null);
-        _asteroidECSPrototype = GameObjectConversionUtility.ConvertGameObjectHierarchy(
-                _bigAsteroidPrototype, settings);
-
-        Debug.Log("generation in 3...");
-        yield return new WaitForSeconds(3f);
-
-        float initTime = Time.realtimeSinceStartup;
-        Debug.Log("init time: " + Time.time);
-        /*for(int i=0;i<_asteroidsAtBeginning;i++)
-            GenerateAsteroid();
-            */
-
-        float diff = (Time.realtimeSinceStartup - initTime);
-
-        Debug.Log("end time: " + Time.realtimeSinceStartup);
-        Debug.Log(string.Format("TimeGenerated: {0}", diff));
-    }
 
 
     void OnGameStarted(int ships) {
@@ -141,32 +141,67 @@ public class AsteroidCreator : MonoBehaviour
     void GenerateAsteroidCloud() {
         /* Create big asteroids */
         for(int i=0;i<_asteroidsAtBeginning;i++) {
-            Asteroid asteroid = GenerateAsteroid(_bigAsteroidPrototype, _bigMaxAngleSpeed, _bigMaxImpulse);
-            asteroid.type = Asteroid.AsteroidType.Big;
-
+            float x=0,y=0;
             Vector2 pos;
             do{
-                float x = Random.Range(ScreenLimits.leftLimit, ScreenLimits.rightLimit);
-                float y = Random.Range(ScreenLimits.downLimit, ScreenLimits.upLimit);
-
+                x = UnityEngine.Random.Range(ScreenLimits.leftLimit, ScreenLimits.rightLimit);
+                y = UnityEngine.Random.Range(ScreenLimits.downLimit, ScreenLimits.upLimit);
                 pos = new Vector2(x,y);
-                asteroid.transform.position = pos;//new Vector3(x,y,0);
             } while(pos.magnitude < EXCLUSION_RADIUS);
+
+            if(GameController.useECS)
+                GenerateECSASteroid(_bigAsteroidECSPrototype, _bigMaxAngleSpeed, _bigMaxImpulse,
+                    x,y, Asteroid.AsteroidType.Big);
+            else
+                GenerateAsteroid(_bigAsteroidPrototype, _bigMaxAngleSpeed, _bigMaxImpulse,
+                    x,y, Asteroid.AsteroidType.Big);
         }
     }
 
 
-    Asteroid GenerateAsteroid(GameObject prototype, float maxAngleSpeed, float maxImpulse) 
+
+    void GenerateECSASteroid(Entity entityPrototype, float maxAngleSpeed, float maxImpulse,
+        float x, float y, Asteroid.AsteroidType asteroidType)
+    {
+        
+        Entity asteroid = _mgr.Instantiate(entityPrototype);
+        _mgr.SetComponentData(entityPrototype, new Translation(){Value=new float3(x,y,0)});
+        _mgr.SetComponentData(entityPrototype, new Rotation(){Value=transform.rotation});
+
+
+        Vector2 velocity = UnityEngine.Random.insideUnitCircle.normalized * UnityEngine.Random.Range(0f, maxImpulse);
+        float rotationSpeed = UnityEngine.Random.Range(-maxAngleSpeed, maxAngleSpeed);
+
+
+        _mgr.AddComponentData(asteroid, new InertiaX(){
+            currentSpeed = velocity.x
+        });
+
+        _mgr.AddComponentData(asteroid, new InertiaY() {
+            currentSpeed = velocity.y
+        });
+
+        _mgr.AddComponentData(asteroid, new InertiaRot() {
+            currentSpeed = rotationSpeed
+        });
+
+        GameController.NotifyAsteroidCreated();
+    }
+
+
+    void GenerateAsteroid(GameObject prototype, float maxAngleSpeed, float maxImpulse,
+        float x, float y, Asteroid.AsteroidType asteroidType) 
     {
         Asteroid asteroid = Instantiate(prototype).GetComponent<Asteroid>();
 
         asteroid.Setup(
-            Random.Range(-maxAngleSpeed, maxAngleSpeed),
-            Random.insideUnitCircle.normalized * Random.Range(0f, maxImpulse)
+            UnityEngine.Random.Range(-maxAngleSpeed, maxAngleSpeed),
+            UnityEngine.Random.insideUnitCircle.normalized * UnityEngine.Random.Range(0f, maxImpulse)
         );
 
-        GameController.NotifyAsteroidCreated();
+        asteroid.type = asteroidType;
+        asteroid.transform.position = new Vector2(x,y);
 
-        return asteroid;
+        GameController.NotifyAsteroidCreated();
     }
 }

@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Entities;
 
-public class Asteroid : MonoBehaviour
+public class Asteroid : MonoBehaviour, IConvertGameObjectToEntity
 {
     const int TOTAL_ASTEROIDS_AFTER_EXPLOSSION = 3;
 
@@ -86,5 +87,9 @@ public class Asteroid : MonoBehaviour
             Instantiate(AsteroidCreator.asteroidExplossion, transform.position, Quaternion.identity);
 
         Destroy(gameObject);
+    }
+
+    public void Convert(Entity entity, EntityManager mgr, GameObjectConversionSystem conversionSystem) 
+    {
     }
 }

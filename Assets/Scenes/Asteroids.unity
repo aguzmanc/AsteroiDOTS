@@ -157,6 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d4b644d73082324580bc37b683dd802, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _useECS: 1
   _pointsPerBigAsteroid: 20
   _pointsPerMediumAsteroid: 40
   _pointsPerSmallAsteroid: 70
@@ -384,7 +385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1356544949
 Transform:
   m_ObjectHideFlags: 0
@@ -658,7 +659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b58c5d4b4246e074e82b701da4039be3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _asteroidsAtBeginning: 10
+  _asteroidsAtBeginning: 5000
   _asteroidExplossion: {fileID: 5434991376829362097, guid: 52c0a7be575bd454bb984af63be379d4, type: 3}
   _bigAsteroidPrototype: {fileID: 7308550185996697948, guid: 783bc286da723e64fade63a19bb1929d, type: 3}
   _bigMaxAngleSpeed: 100
